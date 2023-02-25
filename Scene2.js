@@ -27,6 +27,9 @@ class Scene2 extends Phaser.Scene {
 
   moveShip(ship, speed) {
     ship.y += speed;
+    if (ship.y > config.height) {
+      this.resetShipPosition(ship);
+    }
   }
 
   resetShipPosition(ship) {
