@@ -90,4 +90,8 @@ class Scene2 extends Phaser.Scene {
     var randomX = Phaser.Math.Between(0, config.width);
     ship.x = randomX;
   }
+  destroyShip(pointer, gameObject) {
+    gameObject.setTexture('explosion');
+    gameObject.play('explosion');
+  }
 }
