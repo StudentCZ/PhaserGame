@@ -28,4 +28,10 @@ class Scene2 extends Phaser.Scene {
   moveShip(ship, speed) {
     ship.y += speed;
   }
+
+  update() {
+    this.moveShip(this.ship1, 1);
+    this.moveShip(this.ship2, 2);
+    this.moveShip(this.ship3, 3);
+  }
 }
