@@ -29,6 +29,12 @@ class Scene2 extends Phaser.Scene {
     ship.y += speed;
   }
 
+  resetShipPosition(ship) {
+    ship.y = 0;
+    var randomX = Phaser.Math.Between(0, config.width);
+    ship.x = randomX;
+  }
+
   update() {
     this.moveShip(this.ship1, 1);
     this.moveShip(this.ship2, 2);
