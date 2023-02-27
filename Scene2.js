@@ -33,6 +33,7 @@ class Scene2 extends Phaser.Scene {
       'player'
     );
     this.player.play('thrust');
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
 
     var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
@@ -71,6 +72,15 @@ class Scene2 extends Phaser.Scene {
     this.moveShip(this.ship3, 3);
 
     this.background.tilePositionY -= 0.5;
+    this.movePlayerManager();
+  }
+
+  movePlayerManager() {
+    if (this.cursorKeys.left.isDown) {
+      this.player.setVelocityX(-gameSettings.playerSpeed);
+    } else if (this.cursorKeys.right.isDown) {
+      this.player.setVelocityX(gameSettings.playerSpeed);
+    }
   }
 
   moveShip(ship, speed) {
