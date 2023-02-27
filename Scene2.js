@@ -34,6 +34,7 @@ class Scene2 extends Phaser.Scene {
     );
     this.player.play('thrust');
     this.cursorKeys = this.input.keyboard.createCursorKeys();
+    this.player.setCollideWorldBounds(true);
 
     var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
