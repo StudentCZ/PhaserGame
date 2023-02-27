@@ -75,7 +75,7 @@ class Scene2 extends Phaser.Scene {
     });
     this.powerUps = this.physics.add.group();
 
-    var maxObjects = 5;
+    var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
       var powerUp = this.physics.add.sprite(16, 16, 'power-up');
       this.powerUps.add(powerUp);
@@ -86,6 +86,9 @@ class Scene2 extends Phaser.Scene {
       } else {
         powerUp.play('gray');
       }
+      powerUp.setVelocity(100, 100);
+      powerUp.setCollideWorldBounds(true);
+      powerUp.setBounce(1);
     }
 
     this.add.text(20, 20, 'Playing Game', {
