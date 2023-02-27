@@ -94,8 +94,12 @@ class Scene2 extends Phaser.Scene {
       this.player.setVelocityY(gameSettings.playerSpeed);
     }
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      console.log('fire');
+      this.shootBeam();
     }
+  }
+
+  shootBeam() {
+    var beam = this.physics.add.sprite(this.player.x, this.player.y, 'beam');
   }
 
   moveShip(ship, speed) {
