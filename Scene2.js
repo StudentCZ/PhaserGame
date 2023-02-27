@@ -80,6 +80,12 @@ class Scene2 extends Phaser.Scene {
       var powerUp = this.physics.add.sprite(16, 16, 'power-up');
       this.powerUps.add(powerUp);
       powerUp.setRandomPosition(0, 0, game.config.width, game.config.height);
+
+      if (Math.random() > 0.5) {
+        powerUp.play('red');
+      } else {
+        powerUp.play('gray');
+      }
     }
 
     this.add.text(20, 20, 'Playing Game', {
