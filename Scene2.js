@@ -73,18 +73,21 @@ class Scene2 extends Phaser.Scene {
     this.moveShip(this.ship3, 3);
 
     this.background.tilePositionY -= 0.5;
+    this.player.setVelocity(0);
     this.movePlayerManager();
   }
 
   movePlayerManager() {
     if (this.cursorKeys.left.isDown) {
       this.player.setVelocityX(-gameSettings.playerSpeed);
-    } else if (this.cursorKeys.right.isDown) {
+    }
+    if (this.cursorKeys.right.isDown) {
       this.player.setVelocityX(gameSettings.playerSpeed);
     }
     if (this.cursorKeys.up.isDown) {
       this.player.setVelocityY(-gameSettings.playerSpeed);
-    } else if (this.cursorKeys.down.isDown) {
+    }
+    if (this.cursorKeys.down.isDown) {
       this.player.setVelocityY(gameSettings.playerSpeed);
     }
   }
