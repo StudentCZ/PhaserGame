@@ -26,54 +26,13 @@ class Scene2 extends Phaser.Scene {
       'ship3'
     );
 
-    this.anims.create({
-      key: 'ship1_anim',
-      frames: this.anims.generateFrameNumbers('ship'),
-      frameRate: 20,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'ship2_anim',
-      frames: this.anims.generateFrameNumbers('ship2'),
-      frameRate: 20,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'ship3_anim',
-      frames: this.anims.generateFrameNumbers('ship3'),
-      frameRate: 20,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'explosion',
-      frames: this.anims.generateFrameNumbers('explosion'),
-      frameRate: 20,
-      repeat: 0,
-      hideOnComplete: true,
-    });
-
-    this.anims.create({
-      key: 'red',
-      frames: this.anims.generateFrameNumbers('power-up', {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 20,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: 'gray',
-      frames: this.anims.generateFrameNumbers('power-up', {
-        start: 2,
-        end: 3,
-      }),
-      frameRate: 20,
-      repeat: -1,
-    });
     this.powerUps = this.physics.add.group();
+    this.player = this.physics.add.sprite(
+      config.width / 2 - 8,
+      config.height - 64,
+      'player'
+    );
+    this.player.play('thrust');
 
     var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
