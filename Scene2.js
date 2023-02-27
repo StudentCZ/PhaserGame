@@ -35,6 +35,9 @@ class Scene2 extends Phaser.Scene {
     this.player.play('thrust');
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
+    this.spacebar = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
 
     var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
@@ -89,6 +92,9 @@ class Scene2 extends Phaser.Scene {
     }
     if (this.cursorKeys.down.isDown) {
       this.player.setVelocityY(gameSettings.playerSpeed);
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      console.log('fire');
     }
   }
 
