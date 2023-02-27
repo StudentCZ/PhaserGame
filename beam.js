@@ -3,5 +3,6 @@ class Beam extends Phaser.GameObjects.Sprite {
     var x = scene.player.x;
     var y = scene.player.y;
     super(scene, x, y, 'beam');
+    scene.projectiles.add(this);
   }
 }
