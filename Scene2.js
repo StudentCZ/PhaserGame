@@ -26,6 +26,7 @@ class Scene2 extends Phaser.Scene {
     );
 
     this.powerUps = this.physics.add.group();
+    this.projectiles = this.physics.add.group();
 
     this.player = this.physics.add.sprite(
       config.width / 2 - 8,
@@ -38,9 +39,8 @@ class Scene2 extends Phaser.Scene {
     this.spacebar = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
-    this.projectiles = this.add.group();
-    this.physics.add.collider(this.projectiles, this.powerUps);
-    var maxObjects = 2;
+
+    var maxObjects = 5;
     for (var i = 0; i <= maxObjects; i++) {
       var powerUp = this.physics.add.sprite(16, 16, 'power-up');
       this.powerUps.add(powerUp);
@@ -55,6 +55,21 @@ class Scene2 extends Phaser.Scene {
       powerUp.setCollideWorldBounds(true);
       powerUp.setBounce(1);
     }
+
+    this.physics.add.collider(
+      this.projectiles,
+      this.powerUps,
+      function (projectile, powerUp) {
+        projectile.destroy();
+      }
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.powerUps,
+      this.pickPowerUp,
+      null,
+      this
+    );
 
     this.add.text(20, 20, 'Playing Game', {
       font: '25px Arial',
@@ -80,6 +95,10 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
     this.player.setVelocity(0);
     this.movePlayerManager();
+  }
+
+  pickPowerUp(player, powerUp) {
+    powerUp.disableBody(true, true);
   }
 
   movePlayerManager() {
