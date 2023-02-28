@@ -81,6 +81,22 @@ class Scene2 extends Phaser.Scene {
       fill: 'yellow',
     });
 
+    this.physics.add.overlap(
+      this.player,
+      this.enemies,
+      this.hurtPlayer,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.projectiles,
+      this.enemies,
+      this.hitEnemy,
+      null,
+      this
+    );
+
     this.ship1.play('ship1_anim');
     this.ship2.play('ship2_anim');
     this.ship3.play('ship3_anim');
@@ -100,6 +116,12 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
     this.player.setVelocity(0);
     this.movePlayerManager();
+  }
+
+  hurtPlayer(player, enemy) {
+    this.resetShipPosition(enemy);
+    player.x = config.width / 2 - 8;
+    player.y = config.height - 64;
   }
 
   pickPowerUp(player, powerUp) {
