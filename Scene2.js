@@ -13,7 +13,6 @@ class Scene2 extends Phaser.Scene {
       'background'
     );
     this.background.setOrigin(0, 0);
-
     this.ship1 = this.add.sprite(
       config.width / 2 - 50,
       config.height / 2,
@@ -27,6 +26,7 @@ class Scene2 extends Phaser.Scene {
     );
 
     this.powerUps = this.physics.add.group();
+
     this.player = this.physics.add.sprite(
       config.width / 2 - 8,
       config.height - 64,
@@ -39,8 +39,8 @@ class Scene2 extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
     this.projectiles = this.add.group();
-
-    var maxObjects = 20;
+    this.physics.add.collider(this.projectiles, this.powerUps);
+    var maxObjects = 2;
     for (var i = 0; i <= maxObjects; i++) {
       var powerUp = this.physics.add.sprite(16, 16, 'power-up');
       this.powerUps.add(powerUp);
@@ -60,6 +60,7 @@ class Scene2 extends Phaser.Scene {
       font: '25px Arial',
       fill: 'yellow',
     });
+
     this.ship1.play('ship1_anim');
     this.ship2.play('ship2_anim');
     this.ship3.play('ship3_anim');
@@ -79,14 +80,6 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
     this.player.setVelocity(0);
     this.movePlayerManager();
-
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shootBeam();
-    }
-    for (var i = 0; i < this.projectiles.getChildren().length; i++) {
-      var beam = this.projectiles.getChildren()[i];
-      beam.update();
-    }
   }
 
   movePlayerManager() {
@@ -101,6 +94,13 @@ class Scene2 extends Phaser.Scene {
     }
     if (this.cursorKeys.down.isDown) {
       this.player.setVelocityY(gameSettings.playerSpeed);
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      this.shootBeam();
+    }
+    for (var i = 0; i < this.projectiles.getChildren().length; i++) {
+      var beam = this.projectiles.getChildren()[i];
+      beam.update();
     }
   }
 
