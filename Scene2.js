@@ -25,6 +25,11 @@ class Scene2 extends Phaser.Scene {
       'ship3'
     );
 
+    this.enemies = this.physics.add.group();
+    this.enemies.add(this.ship1);
+    this.enemies.add(this.ship2);
+    this.enemies.add(this.ship3);
+
     this.powerUps = this.physics.add.group();
     this.projectiles = this.physics.add.group();
 
