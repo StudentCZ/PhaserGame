@@ -38,6 +38,7 @@ class Scene2 extends Phaser.Scene {
     this.spacebar = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
+    this.projectiles = this.add.group();
 
     var maxObjects = 20;
     for (var i = 0; i <= maxObjects; i++) {
@@ -78,6 +79,14 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
     this.player.setVelocity(0);
     this.movePlayerManager();
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      this.shootBeam();
+    }
+    for (var i = 0; i < this.projectiles.getChildren().length; i++) {
+      var beam = this.projectiles.getChildren()[i];
+      beam.update();
+    }
   }
 
   movePlayerManager() {
@@ -93,13 +102,10 @@ class Scene2 extends Phaser.Scene {
     if (this.cursorKeys.down.isDown) {
       this.player.setVelocityY(gameSettings.playerSpeed);
     }
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shootBeam();
-    }
   }
 
   shootBeam() {
-    var beam = this.physics.add.sprite(this.player.x, this.player.y, 'beam');
+    var beam = new Beam(this);
   }
 
   moveShip(ship, speed) {
