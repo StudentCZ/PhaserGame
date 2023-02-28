@@ -5,7 +5,7 @@ class Scene1 extends Phaser.Scene {
 
   preload() {
     this.load.image('background', 'assets/images/background.png');
-
+    //
     this.load.spritesheet('ship', 'assets/spritesheets/ship.png', {
       frameWidth: 16,
       frameHeight: 16,
@@ -46,14 +46,12 @@ class Scene1 extends Phaser.Scene {
       frameRate: 20,
       repeat: -1,
     });
-
     this.anims.create({
       key: 'ship2_anim',
       frames: this.anims.generateFrameNumbers('ship2'),
       frameRate: 20,
       repeat: -1,
     });
-
     this.anims.create({
       key: 'ship3_anim',
       frames: this.anims.generateFrameNumbers('ship3'),
@@ -62,7 +60,7 @@ class Scene1 extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: 'explosion',
+      key: 'explode',
       frames: this.anims.generateFrameNumbers('explosion'),
       frameRate: 20,
       repeat: 0,
@@ -89,13 +87,13 @@ class Scene1 extends Phaser.Scene {
     });
     this.anims.create({
       key: 'thrust',
-      frames: this.anims.generateFrameNumbers('player', {
-        frameRate: 20,
-        repeat: -1,
-      }),
+      frames: this.anims.generateFrameNumbers('player'),
+      frameRate: 20,
+      repeat: -1,
     });
+
     this.anims.create({
-      key: 'beam',
+      key: 'beam_anim',
       frames: this.anims.generateFrameNumbers('beam'),
       frameRate: 20,
       repeat: -1,
