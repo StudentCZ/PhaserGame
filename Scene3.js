@@ -48,7 +48,7 @@ class Scene3 extends Phaser.Scene {
 
     this.input.on('gameobjectdown', this.destroyShip, this);
 
-    this.add.text(20, 20, 'Playing game', {
+    this.add.text(10, 10, 'Playing game', {
       font: '32px Arial',
       fill: '#ffffff',
     });
