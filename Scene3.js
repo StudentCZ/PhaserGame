@@ -1,6 +1,7 @@
 class Scene3 extends Phaser.Scene {
   constructor() {
     super('playGame');
+    this.score = 0;
   }
 
   create() {
@@ -12,6 +13,12 @@ class Scene3 extends Phaser.Scene {
       'background'
     );
     this.background.setOrigin(0, 0);
+    this.scoreText = this.add.text(this.game.config.width - 10, 10, 'Score 0', {
+      fontFamily: 'Arial',
+      fontSize: 32,
+      color: '#ffffff',
+    });
+    this.scoreText.setOrigin(1, 0);
 
     this.ship1 = this.add.sprite(
       config.width / 2 - 50,
@@ -42,8 +49,8 @@ class Scene3 extends Phaser.Scene {
     this.input.on('gameobjectdown', this.destroyShip, this);
 
     this.add.text(20, 20, 'Playing game', {
-      font: '25px Arial',
-      fill: 'yellow',
+      font: '32px Arial',
+      fill: '#ffffff',
     });
 
     this.physics.world.setBoundsCollision();
@@ -136,6 +143,8 @@ class Scene3 extends Phaser.Scene {
 
   // 4.3 reset ship position when hit
   hitEnemy(projectile, enemy) {
+    this.score += 100;
+    this.scoreText.setText(`Score: ${this.score}`);
     projectile.destroy();
     this.resetShipPos(enemy);
   }
