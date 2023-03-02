@@ -187,6 +187,8 @@ class Scene3 extends Phaser.Scene {
     // 2.1 spawn an explosion animation
     var explosion = new Explosion(this, enemy.x, enemy.y);
 
+    this.score += 100;
+    this.scoreText.setText(`Score: ${this.score}`);
     projectile.destroy();
     this.resetShipPos(enemy);
   }
