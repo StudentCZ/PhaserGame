@@ -137,12 +137,19 @@ class Scene3 extends Phaser.Scene {
   // 3.3 reset position of player and enemy when they crash each other
   hurtPlayer(player, enemy) {
     this.resetShipPos(enemy);
-    // player.x = config.width / 2 - 8;
-    // player.y = config.height - 64;
-    var explosion = new Explosion(this.player.x, player.y);
 
+    // 4.3 don't hurt the player if it is invincible
+    if (this.player.alpha < 1) {
+      return;
+    }
+
+    // 2.2 spawn a explosion animation
+    var explosion = new Explosion(this, player.x, player.y);
+
+    // 2.3 disable the player and hide it
     player.disableBody(true, true);
 
+    // 3.1 after a time enable the player again
     this.time.addEvent({
       delay: 1000,
       callback: this.resetPlayer,
@@ -151,11 +158,35 @@ class Scene3 extends Phaser.Scene {
     });
   }
 
-  // 4.3 reset ship position when hit
+  resetPlayer() {
+    // 3.2 enable the player again
+    var x = config.width / 2 - 8;
+    var y = config.height + 64;
+    this.player.enableBody(true, x, y, true, true);
+
+    //
+    // 4.1 make the player transparent to indicate invulnerability
+    this.player.alpha = 0.5;
+    //
+    //
+    // 4.2 move the ship from outside the screen to its original position
+    var tween = this.tweens.add({
+      targets: this.player,
+      y: config.height - 64,
+      ease: 'Power1',
+      duration: 1500,
+      repeat: 0,
+      onComplete: function () {
+        this.player.alpha = 1;
+      },
+      callbackScope: this,
+    });
+  }
+
   hitEnemy(projectile, enemy) {
+    // 2.1 spawn an explosion animation
     var explosion = new Explosion(this, enemy.x, enemy.y);
-    this.score += 100;
-    this.scoreText.setText(`Score: ${this.score}`);
+
     projectile.destroy();
     this.resetShipPos(enemy);
   }
@@ -164,10 +195,6 @@ class Scene3 extends Phaser.Scene {
     this.moveShip(this.ship1, 1);
     this.moveShip(this.ship2, 2);
     this.moveShip(this.ship3, 3);
-    // for testing purpouses
-    // this.ship1.destroy();
-    // this.ship2.destroy();
-    // this.ship3.destroy();
 
     this.background.tilePositionY -= 0.5;
 
